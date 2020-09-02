@@ -1,0 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap');
+
+:root {
+  --primaryColor: #fff;
+  --navColor1: #2a5966;
+  --navColor2: #398ba2;
+  --navColor3: #327284;
+  --navColor4: #1f3f48;
+  --navColor5: #14272c;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  font-family: Oswald, sans-serif;
+}
+
+/* --- Navigation Menu ------------------------------ */
+
+/* Overlay, the colored menu is a child of the overlay */
+.overlay {
+  position: fixed;
+  z-index: 9; /* makes overlay overlay on top of all other layers, default normally 1 */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  transform: translateX(-100vw); /* makes menu elements disappear from screen */
+}
+
+/* Extra overlay class so that sliding in and out of menu elements works properly */
+.overlay-slide-right {
+  transition: all 0.4s ease-in-out; /* let all elements retract with 0.4 sec delay */
+  transform: translateX(0); /* translation reversed */
+}
+
+/* Extra overlay class so that sliding in and out menu works properly from left to right and with delay*/
+.overlay-slide-left {
+  transition: all 0.8s ease-in-out; 
+  transform: translateX(-100vw); /* translation reversed to come in picture/screen and out of screen */
+}
+
+/* Nav Menu Items */
+nav,
+nav ul {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  display: flex; /* total width */
+  flex-direction: column; /* from top to bottom instead of left to right */
+  justify-content: stretch; /* stretched over total width */
+  list-style: none; /* no dots in list */ 
+}
+
+/* hight of every single element in navigation */
+nav ul li {
+  height: 20%; /* 20% of parent*/
+  overflow: hidden /* prevents stretching page in horizontal direction, we do not want horizontal scroll barr */
+}
+
+/* Styling nav elements and position of elements */
+nav li a {
+  position: relative; /* centered in element */
+  top: 45%; /* 45 percent from top of element, font also takes up room! */
+  color: #fff;
+  text-transform: uppercase; 
+  letter-spacing: 4px; /* 4pixels between letters */
+  text-decoration: none; /* no decoration */
+  display: block; /* start on a new line */
+  text-align: center;
+}
+
+/* Interactive feeling on hovering over nav elements */
+nav li a:hover {
+  transform: scale(1.2); /* makes nav anchor 20% bigger when hover */
+}
+
+/* Extra styling in the menu, line coming in from left*/
+nav li a::before {
+  content: ""; /* It is possible to put in text content */
+  width: 25vw; /* Coming in from left side */
+  height: 2px; /* Thickness of line */
+  background-color: #fff;
+  position: absolute; /*Position*/
+  top: 47.5%; /* From top of element */
+  left: 0; /* Coming in from left site at the edge */
+  opacity: 0;
+}
+
+/* Extra styling on top of previous */
+nav li a:hover::before {
+  opacity: 1;
+}
+
+
+/* nth-of-type allows to select each of the 5 nav element and style them */
+nav li:nth-of-type(1) {
+  background-color: var(--navColor1);
+}
+
+nav li:nth-of-type(2) {
+  background-color: var(--navColor2);
+}
+
+nav li:nth-of-type(3) {
+  background-color: var(--navColor3);
+}
+
+nav li:nth-of-type(4) {
+  background-color: var(--navColor4);
+}
+
+nav li:nth-of-type(5) {
+  background-color: var(--navColor5);
+}
+
+
+/* Slide in animation with delay for nav items. Ensures that there is an extra animation when the menu elements are displayed, 1 by 1 with delay so that it comes across as calm
+ */
+.slide-in-1 {
+  animation: slide-in 0.4s linear 0.2s both
+}
+
+.slide-in-2 {
+  animation: slide-in 0.4s linear 0.4s both
+}
+
+.slide-in-3 {
+  animation: slide-in 0.4s linear 0.6s both
+}
+
+.slide-in-4 {
+  animation: slide-in 0.4s linear 0.8s both
+}
+
+.slide-in-5 {
+  animation: slide-in 0.4s linear 1s both
+}
+
+/* Animation */
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Slide OUT animation with a delay for nav items. Ensures that there is an extra animation when the menu elements are displayed, 1 by 1 with delay so that it comes across as calm
+ */
+.slide-out-1 {
+  animation: slide-out 0.3s linear 0.5s both
+}
+
+.slide-out-2 {
+  animation: slide-out 0.3s linear 0.4s both
+}
+
+.slide-out-3 {
+  animation: slide-out 0.3s linear 0.3s both
+}
+
+.slide-out-4 {
+  animation: slide-out 0.3s linear 0.2s both
+}
+
+.slide-out-5 {
+  animation: slide-out 0.3s linear 0.1s both
+}
+
+/* Animation */
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* --- Menu Bars / Hamburger and Cross Menu---------------- */
+
+.menu-bars {
+  position: fixed;
+  top: 1rem;
+  right: 2rem;
+  z-index: 10;
+  display: inline;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 2px;
+  background-color: #fff;
+  margin: 8px 0;
+  transition: 0.4s;
+}
+
+/* Rotates first bar so that burger becomes a cross */
+.change .bar1 {
+  transform: rotate(-45deg) translate(-7px, 8px);
+}
+
+/* Fading out the second bar in behave of cross */
+.change .bar2 {
+  opacity: 0;
+}
+
+/* Rotating last bar so that burger finally becomes cross */
+.change .bar3 {
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+/* --- Sections ------------------------------------ */
+
+section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--primaryColor);
+}
+
+section#home {
+  background-image: url("./background/background_img.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+section#home a {
+  position: absolute;
+  z-index: 2;
+  top: 1.5rem;
+  left: 1.5rem;
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding-bottom: 5px;
+  color: var(--primaryColor);
+  border-bottom: 1px solid var(--primaryColor);
+}
+
+.title-group {
+  text-align: center;
+  text-transform: none;
+  font-size: 2rem;
+  text-shadow: 2px 2px 10px black;
+}
+
+section#about {
+  background-color: var(--navColor2);
+}
+
+.text-box1 {
+  width: 50%;
+  text-align: center;
+  text-transform: none;
+  background: rgb(255 255 255/ 20%);
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+p {
+  margin: 0;
+  line-height: 20px;
+}
+
+section#skills {
+  background-color: var(--navColor3);
+}
+
+.text-box2 {
+  width: 50%;
+  text-align: center;
+  text-transform: none;
+  background: rgb(255 255 255 / 20%);
+  border-radius: 10px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+section#projects {
+  background-color: var(--navColor4);
+}
+
+.text-box3 {
+  width: 50%;
+  text-align: center;
+  text-transform: none;
+  background: rgb(255 255 255 / 20%);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+.fab {
+  font-size: 50px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--primaryColor);
+}
+
+
+section#contact {
+  background-color: var(--navColor5);
+}
+
+.text-box4 {
+  width: 40%;
+  text-align: center;
+  text-transform: none;
+  background: rgb(255 255 255 / 20%);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+}
+
+
+.fab {
+  font-size: 50px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--primaryColor);
+}
+
+.fab:hover {
+  color: rgba(104, 101, 101, 0.7);
+}
+
+.fas {
+  font-size: 50px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--primaryColor);
+}
+
+.fas:hover {
+  color: rgba(104, 101, 101, 0.7);
+}
+
+.footer {
+  text-transform: none;
+  margin-top: 10px;
+}
+
+/* Cookies */
+
+p {
+  margin: 6px 0;
+  line-height: 2;
+}
+
+.wrapper {
+ padding: 10px; 
+}
+
+.cookie-container {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background-color: var(--navColor5);
+  color: var(--primaryColor);
+  padding: 0 16px;
+  box-shadow: 0 -2px 16px rgba(#2f364071);
+
+  transition: 400ms;
+}
+
+.cookie-container.active {
+  bottom: 0;
+}
+
+.cookie-container a {
+  color: var(--primaryColor);
+}
+
+.cookie-btn {
+  background: var(--navColor1);
+  border: 0;
+  color: var(--primaryColor);
+  padding: 3px 12px;
+  font-size: 16px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cookie-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Media Query: Large Smartphone (Vertical), currently 1 media query add others later if necessary */
+@media (max-width: 600px) {
+  section#home a {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .menu-bars {
+    top: 0.5rem;
+    right: 1rem;
+  }
+}
+
